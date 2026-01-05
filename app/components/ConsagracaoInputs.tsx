@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../components/ui/select';
 import { RadioGroup, RadioGroupItem } from '../../components/ui/radio-group';
@@ -5,37 +6,29 @@ import { DatePicker } from './DatePicker';
 import { ConsagracaoMetodoInfo } from './ConsagracaoMetodoInfo';
 import { datasMarianas, ModoContagem } from '../utils/calendarioConsagracao';
 import dayjs from 'dayjs';
+import { useConsagracao } from '../context/ConsagracaoContext';
 
-interface ConsagracaoInputsProps {
-  dataFinal: string;
-  setDataFinal: (v: string) => void;
-  isDataLivre: boolean;
-  dataLivre: Date | undefined;
-  setDataLivre: (d: Date | undefined) => void;
-  modo: ModoContagem;
-  setModo: (m: ModoContagem) => void;
-}
-
-export const ConsagracaoInputs: React.FC<ConsagracaoInputsProps> = ({
-  dataFinal,
-  setDataFinal,
-  isDataLivre,
-  dataLivre,
-  setDataLivre,
-  modo,
-  setModo,
-}) => {
+export const ConsagracaoInputs: React.FC = () => {
+  const {
+    consagracaoDate,
+    setConsagracaoDate,
+    modo,
+    setModo,
+    isDataLivre,
+    dataLivre,
+    setDataLivre
+  } = useConsagracao();
 
   return (
     <>
-      <Select value={dataFinal} onValueChange={setDataFinal}>
+      <Select value={consagracaoDate || ''} onValueChange={setConsagracaoDate}>
         <SelectTrigger className="w-full mb-4">
           <SelectValue placeholder="Selecione a data" />
         </SelectTrigger>
         <SelectContent>
           {datasMarianas.map((d) => (
             <SelectItem key={d.data} value={d.data}>
-              {d.nome} (Consagração: {dayjs(d.data).format('DD/MM/YYYY')})
+              {d.nome} ({dayjs(d.data).format('DD/MM/YYYY')})
             </SelectItem>
           ))}
           <SelectItem value="livre">Outra data...</SelectItem>

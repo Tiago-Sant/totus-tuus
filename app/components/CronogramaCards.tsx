@@ -1,22 +1,27 @@
-import React from 'react';
+
+import React, { useMemo } from 'react';
 import EtapaCard from './EtapaCard';
 import { AvisoPreparatorio } from './AvisoPreparatorio';
 import { useCronogramaStatus } from '../hooks/useCronogramaStatus';
 import { useEtapaCardHighlight } from '../hooks/useEtapaCardHighlight';
 import dayjs from 'dayjs';
+import { useConsagracao } from '../context/ConsagracaoContext';
+import { gerarCronograma } from '../utils/calendarioConsagracao';
 
-export interface CronogramaEtapa {
-  nome: string;
-  dataInicio: Date | string;
-  dataFim: Date | string;
-  oracoes: unknown[];
-}
+export const CronogramaCards: React.FC = () => {
+  const { consagracaoDate, modo, isDataLivre, dataLivre } = useConsagracao();
 
-interface CronogramaProps {
-  cronograma: CronogramaEtapa[];
-  dataConsagracao: Date;
-}
-export const CronogramaCards: React.FC<CronogramaProps> = ({ cronograma, dataConsagracao }) => {
+  // Determina a data de consagração efetiva
+  const dataConsagracao: Date = useMemo(() => {
+    if (isDataLivre && dataLivre instanceof Date && !isNaN(dataLivre.getTime())) {
+      return dataLivre;
+    }
+    return dayjs(consagracaoDate).toDate();
+  }, [consagracaoDate, isDataLivre, dataLivre]);
+
+  // Gera o cronograma conforme modo e data
+  const cronograma = useMemo(() => gerarCronograma(dataConsagracao, modo), [dataConsagracao, modo]);
+
   const { hoje, getTextoFaltamDias, inicioProximo, dataFinalValida, mostrarAvisoPreparatorio, cronogramaOrdenado } = useCronogramaStatus(cronograma, dataConsagracao);
   const getEtapaCardHighlight = useEtapaCardHighlight(hoje, dataFinalValida);
 

@@ -1,7 +1,13 @@
 
 import { useMemo } from 'react';
 import dayjs from 'dayjs';
-import { CronogramaEtapa } from '../components/CronogramaCards';
+
+export interface CronogramaEtapa {
+  nome: string;
+  dataInicio: Date | string;
+  dataFim: Date | string;
+  oracoes: unknown[];
+}
 
 export function useCronogramaStatus(cronograma: CronogramaEtapa[], dataConsagracao: Date) {
   return useMemo(() => {
