@@ -3,6 +3,7 @@ import EtapaCard from './EtapaCard';
 import { AvisoPreparatorio } from './AvisoPreparatorio';
 import { useCronogramaStatus } from '../hooks/useCronogramaStatus';
 import { useEtapaCardHighlight } from '../hooks/useEtapaCardHighlight';
+import dayjs from 'dayjs';
 
 export interface CronogramaEtapa {
   nome: string;
@@ -14,19 +15,20 @@ export interface CronogramaEtapa {
 interface CronogramaProps {
   cronograma: CronogramaEtapa[];
   dataConsagracao: Date;
-  formatarData: (d: Date | string | undefined) => string;
 }
-
-export const CronogramaCards: React.FC<CronogramaProps> = ({ cronograma, dataConsagracao, formatarData }) => {
-  const { hoje, getTextoFaltamDias, inicioProximo, dataFinalValida, mostrarAvisoPreparatorio } = useCronogramaStatus(cronograma, dataConsagracao);
+export const CronogramaCards: React.FC<CronogramaProps> = ({ cronograma, dataConsagracao }) => {
+  const { hoje, getTextoFaltamDias, inicioProximo, dataFinalValida, mostrarAvisoPreparatorio, cronogramaOrdenado } = useCronogramaStatus(cronograma, dataConsagracao);
   const getEtapaCardHighlight = useEtapaCardHighlight(hoje, dataFinalValida);
+
+  const formatarData = (d: Date | string | undefined) =>
+    d ? dayjs(d).format('DD/MM/YYYY') : '';
 
   return (
     <>
       {mostrarAvisoPreparatorio && (
-        <AvisoPreparatorio textoFaltamDias={getTextoFaltamDias()} dataInicio={inicioProximo} formatarData={formatarData} />
+        <AvisoPreparatorio getTextoFaltamDias={getTextoFaltamDias} dataInicio={inicioProximo} formatarData={formatarData} />
       )}
-      {cronograma.map((etapa) => {
+      {cronogramaOrdenado.map((etapa) => {
         const { etapaId, highlight } = getEtapaCardHighlight(
           etapa.nome,
           etapa.dataInicio,

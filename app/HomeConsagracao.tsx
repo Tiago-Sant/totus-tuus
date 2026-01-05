@@ -1,0 +1,70 @@
+"use client";
+
+import { useConsagracaoSelecao } from './hooks/useConsagracaoSelecao';
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
+dayjs.extend(isBetween);
+import { CronogramaCards } from './components/CronogramaCards';
+import { Heart } from 'lucide-react';
+import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
+import { ConsagracaoInputs } from './components/ConsagracaoInputs';
+
+
+interface HomeConsagracaoProps {
+  dataFinal: string;
+  modo: string;
+  dataLivre?: string;
+}
+
+export default function HomeConsagracao({ dataFinal, modo, dataLivre }: HomeConsagracaoProps) {
+  const {
+    dataFinal: stateDataFinal,
+    setDataFinal,
+    modo: stateModo,
+    setModo,
+    dataLivre: stateDataLivre,
+    setDataLivre,
+    isDataLivre,
+    dataConsagracao,
+    cronograma,
+  } = useConsagracaoSelecao({
+    initialDataFinal: dataFinal,
+    initialModo: modo,
+    initialDataLivre: dataLivre,
+  });
+
+  return (
+    <div className="min-h-screen w-full flex flex-col items-center justify-start bg-slate-50 dark:bg-slate-900 py-8 px-2">
+      <main className="w-full max-w-2xl flex flex-col items-center">
+        <div className="mb-8 w-full flex flex-col items-center">
+          <h1 className="flex items-center justify-center gap-2 text-xl md:text-3xl font-bold text-center tracking-tight text-indigo-700 dark:text-indigo-400">
+            <Heart className="w-7 h-7 text-pink-500 dark:text-pink-400" aria-label="Coração" />
+            Consagração a Jesus por Maria
+          </h1>
+          <span className="block text-center text-xs mt-1 text-slate-500 dark:text-slate-400 font-medium">
+            Segundo o método de São Luís Maria Grignion de Montfort
+          </span>
+        </div>
+        <Card className="mb-8 w-full bg-slate-100/80 dark:bg-slate-800/80 border-0 shadow-md">
+          <CardHeader>
+            <CardTitle className="text-lg text-slate-900 dark:text-slate-100">Escolha a data da consagração:</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <ConsagracaoInputs
+              dataFinal={stateDataFinal}
+              setDataFinal={setDataFinal}
+              isDataLivre={isDataLivre}
+              dataLivre={stateDataLivre}
+              setDataLivre={setDataLivre}
+              modo={stateModo}
+              setModo={setModo}
+            />
+          </CardContent>
+        </Card>
+        <div className="flex flex-wrap justify-center gap-8 w-full">
+          <CronogramaCards cronograma={cronograma} dataConsagracao={dataConsagracao} />
+        </div>
+      </main>
+    </div>
+  );
+}

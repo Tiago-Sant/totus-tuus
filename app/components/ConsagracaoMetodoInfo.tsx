@@ -1,49 +1,35 @@
-import {
-  Alert,
-  AlertTitle,
-  AlertDescription,
-} from "@/components/ui/alert";
+import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { Info } from "lucide-react";
 
 export function ConsagracaoMetodoInfo() {
   return (
-    <Alert variant="default">
-      <Info className="h-4 w-4 text-indigo-700 dark:text-indigo-300" />
-      <AlertTitle className="dark:text-indigo-300">Importante</AlertTitle>
-      <AlertDescription className="space-y-2">
+    <Popover>
+      <PopoverTrigger asChild>
+        <button className="cursor-pointer" type="button" aria-label="Dica sobre o método de preparação para a consagração">
+          <Info className="h-5 w-5 text-indigo-700 dark:text-indigo-300 hover:text-indigo-900 dark:hover:text-indigo-100 transition-colors" />
+        </button>
+      </PopoverTrigger>
+      <PopoverContent className="space-y-2 max-w-xs">
+        <div className="font-semibold text-indigo-700 dark:text-indigo-300 mb-1">Qual método escolher?</div>
         <p>
-          Existem <strong>duas formas tradicionais</strong> de realizar a
-          preparação para a consagração:
+          Para se preparar para a consagração, você pode optar por dois caminhos tradicionais:
         </p>
-
-        <ul className="list-disc list-inside">
-          <li><strong>33 dias</strong></li>
-          <li><strong>30 dias</strong></li>
+        <ul className="list-disc list-inside mb-1">
+          <li><strong>33 dias</strong> — etapas finais com 7 dias cada</li>
+          <li><strong>30 dias</strong> — etapas finais com 6 dias cada</li>
         </ul>
-
         <p>
-          Em ambos os métodos, a estrutura espiritual é a mesma.
-          <br />
-          <strong>O que muda é apenas a duração das três últimas etapas:</strong>
+          Ambos os métodos têm a mesma essência espiritual. O que muda é apenas o tempo dedicado às três últimas etapas:
         </p>
-
-        <ul className="list-disc list-inside">
+        <ul className="list-disc list-inside mb-1">
           <li>Conhecimento de si</li>
           <li>Conhecimento de Maria</li>
           <li>Conhecimento de Jesus</li>
         </ul>
-
-        <p>
-          <strong>33 dias:</strong> cada uma dessas etapas dura 7 dias
-          <br />
-          <strong>30 dias:</strong> cada uma dessas etapas dura 6 dias
+        <p className="text-sm text-muted-foreground mt-2">
+          Não existe um único caminho “certo”. Escolha aquele que mais favorecer sua vivência e aprofundamento espiritual.
         </p>
-
-        <p className="text-sm text-muted-foreground">
-          Não existe um método “certo” ou “errado”.  
-          Escolha aquele que melhor ajudar sua vivência espiritual.
-        </p>
-      </AlertDescription>
-    </Alert>
+      </PopoverContent>
+    </Popover>
   );
 }

@@ -1,43 +1,36 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { gerarCronograma, datasMarianas, ModoContagem } from '../utils/calendarioConsagracao';
+import { setConsagracaoCookie } from '../utils/setConsagracaoCookie';
 
-export function useConsagracaoSelecao() {
-  // Chaves para localStorage
-  const STORAGE_KEY_DATA_FINAL = 'consagracao:dataFinal';
-  const STORAGE_KEY_MODO = 'consagracao:modo';
-  const STORAGE_KEY_DATA_LIVRE = 'consagracao:dataLivre';
 
-  // Inicialização segura para Next.js/SSR
-  const getInitialDataFinal = () => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY_DATA_FINAL);
-      return saved || datasMarianas[0].data;
-    }
-    return datasMarianas[0].data;
-  };
-  const getInitialModo = () => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY_MODO);
-      return (saved as ModoContagem) || '33';
-    }
-    return '33';
-  };
-  const getInitialDataLivre = () => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY_DATA_LIVRE);
-      if (saved) {
-        const d = new Date(saved);
-        if (!isNaN(d.getTime())) return d;
-      }
-    }
-    return undefined;
-  };
+interface UseConsagracaoSelecaoProps {
+  initialDataFinal: string;
+  initialModo: string;
+  initialDataLivre?: string;
+}
 
-  const [dataFinal, setDataFinal] = useState(getInitialDataFinal);
-  const [modo, setModo] = useState<ModoContagem>(getInitialModo);
-  const [dataLivre, setDataLivre] = useState<Date | undefined>(getInitialDataLivre);
+export function useConsagracaoSelecao({ initialDataFinal, initialModo, initialDataLivre }: UseConsagracaoSelecaoProps) {
+  const [dataFinal, setDataFinalState] = useState(initialDataFinal || datasMarianas[0].data);
+  const [modo, setModoState] = useState<ModoContagem>((initialModo as ModoContagem) || '33');
+  const [dataLivre, setDataLivreState] = useState<Date | undefined>(
+    initialDataLivre ? new Date(initialDataLivre) : undefined
+  );
   const isDataLivre = dataFinal === 'livre';
+
+  // Sempre que mudar, atualize o cookie via API
+  const setDataFinal = (novaDataFinal: string) => {
+    setDataFinalState(novaDataFinal);
+    setConsagracaoCookie({ dataFinal: novaDataFinal, modo, dataLivre: dataLivre?.toISOString() });
+  };
+  const setModo = (novoModo: ModoContagem) => {
+    setModoState(novoModo);
+    setConsagracaoCookie({ dataFinal, modo: novoModo, dataLivre: dataLivre?.toISOString() });
+  };
+  const setDataLivre = (novaDataLivre: Date | undefined) => {
+    setDataLivreState(novaDataLivre);
+    setConsagracaoCookie({ dataFinal, modo, dataLivre: novaDataLivre?.toISOString() });
+  };
 
   const dataConsagracao = useMemo(() => {
     if (isDataLivre && dataLivre instanceof Date && !isNaN(dataLivre.getTime())) {
@@ -47,26 +40,6 @@ export function useConsagracaoSelecao() {
       return dayjs(dataFinal).toDate();
     }
   }, [dataFinal, dataLivre, isDataLivre]);
-
-  // Persistência local
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (dataFinal) localStorage.setItem(STORAGE_KEY_DATA_FINAL, dataFinal);
-  }, [dataFinal]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (modo) localStorage.setItem(STORAGE_KEY_MODO, modo);
-  }, [modo]);
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (isDataLivre && dataLivre instanceof Date && !isNaN(dataLivre.getTime())) {
-      localStorage.setItem(STORAGE_KEY_DATA_LIVRE, dataLivre.toISOString());
-    } else {
-      localStorage.removeItem(STORAGE_KEY_DATA_LIVRE);
-    }
-  }, [dataLivre, isDataLivre]);
 
   const cronograma = useMemo(() => gerarCronograma(dataConsagracao, modo), [dataConsagracao, modo]);
 
