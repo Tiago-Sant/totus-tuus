@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { ConsagracaoProvider } from "./context/ConsagracaoContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,22 +53,24 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-          <div className="fixed top-4 right-4 z-50">
-            <ModeToggle />
-          </div>
-          <div className="min-h-screen flex flex-col px-4 md:px-0">
-            <div className="flex-1 flex flex-col">
-              {children}
+        <ConsagracaoProvider>
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <div className="fixed top-4 right-4 z-50">
+              <ModeToggle />
             </div>
-            <footer className="mt-16 text-sm text-center text-zinc-400 py-8 flex flex-col items-center gap-2">
-              <Heart className="mx-auto mb-1 w-6 h-6 text-indigo-400 dark:text-indigo-300" />
-              <span>
-                App para auxiliar na preparação da consagração a Jesus por Maria, segundo o método de São Luís Maria Grignion de Montfort.
-              </span>
-            </footer>
-          </div>
-        </ThemeProvider>
+            <div className="min-h-screen flex flex-col px-4 md:px-0">
+              <div className="flex-1 flex flex-col">
+                {children}
+              </div>
+              <footer className="mt-16 text-sm text-center text-zinc-400 py-8 flex flex-col items-center gap-2">
+                <Heart className="mx-auto mb-1 w-6 h-6 text-indigo-400 dark:text-indigo-300" />
+                <span>
+                  App para auxiliar na preparação da consagração a Jesus por Maria, segundo o método de São Luís Maria Grignion de Montfort.
+                </span>
+              </footer>
+            </div>
+          </ThemeProvider>
+        </ConsagracaoProvider>
       </body>
     </html>
   );

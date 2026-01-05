@@ -1,6 +1,6 @@
 "use client";
 
-import { useConsagracaoSelecao } from './hooks/useConsagracaoSelecao';
+import { useConsagracao } from './context/ConsagracaoContext';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
@@ -9,30 +9,7 @@ import { Heart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { ConsagracaoInputs } from './components/ConsagracaoInputs';
 
-
-interface HomeConsagracaoProps {
-  dataFinal: string;
-  modo: string;
-  dataLivre?: string;
-}
-
-export default function HomeConsagracao({ dataFinal, modo, dataLivre }: HomeConsagracaoProps) {
-  const {
-    dataFinal: stateDataFinal,
-    setDataFinal,
-    modo: stateModo,
-    setModo,
-    dataLivre: stateDataLivre,
-    setDataLivre,
-    isDataLivre,
-    dataConsagracao,
-    cronograma,
-  } = useConsagracaoSelecao({
-    initialDataFinal: dataFinal,
-    initialModo: modo,
-    initialDataLivre: dataLivre,
-  });
-
+export default function HomeConsagracao() {
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-start bg-slate-50 dark:bg-slate-900 py-8 px-2">
       <main className="w-full max-w-2xl flex flex-col items-center">
@@ -50,19 +27,11 @@ export default function HomeConsagracao({ dataFinal, modo, dataLivre }: HomeCons
             <CardTitle className="text-lg text-slate-900 dark:text-slate-100">Escolha a data da consagração:</CardTitle>
           </CardHeader>
           <CardContent>
-            <ConsagracaoInputs
-              dataFinal={stateDataFinal}
-              setDataFinal={setDataFinal}
-              isDataLivre={isDataLivre}
-              dataLivre={stateDataLivre}
-              setDataLivre={setDataLivre}
-              modo={stateModo}
-              setModo={setModo}
-            />
+            <ConsagracaoInputs />
           </CardContent>
         </Card>
         <div className="flex flex-wrap justify-center gap-8 w-full">
-          <CronogramaCards cronograma={cronograma} dataConsagracao={dataConsagracao} />
+          <CronogramaCards />
         </div>
       </main>
     </div>
