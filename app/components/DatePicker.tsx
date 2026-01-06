@@ -10,11 +10,13 @@ import { ptBR } from "date-fns/locale"
 interface DatePickerProps {
   date: Date | undefined
   setDate: (date: Date | undefined) => void
+  open?: boolean
+  setOpen?: (open: boolean) => void
 }
 
-export function DatePicker({ date, setDate }: DatePickerProps) {
+export function DatePicker({ date, setDate, open, setOpen }: DatePickerProps) {
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}

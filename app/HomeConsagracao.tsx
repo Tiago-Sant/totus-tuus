@@ -1,6 +1,5 @@
 "use client";
 
-import { useConsagracao } from './context/ConsagracaoContext';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);

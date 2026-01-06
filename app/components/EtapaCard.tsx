@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle } from '../../components/ui/card';
-import { Earth, Heart, Flame, Rose, Star } from "lucide-react";
+import { Earth, Heart, Flame, Rose, Star, ArrowRightCircle } from "lucide-react";
 
 
 
@@ -43,6 +43,12 @@ const EtapaCard: React.FC<EtapaCardProps> = ({ etapa, dataInicio, dataFim, etapa
         </div>
         <div className={`text-center text-sm mt-1 font-medium tracking-wide w-full ${highlight ? 'text-amber-700 dark:text-amber-200' : 'text-slate-700 dark:text-slate-300'}`}>
           {etapaId == 'dia-da-consagra-o' ? dataFim   : `${dataInicio} – ${dataFim}`}
+        </div>
+        <div className="flex items-center justify-center w-full">
+          <span className="text-indigo-600 dark:text-indigo-300 font-medium underline underline-offset-2 flex items-center gap-1 group-hover:text-indigo-800 group-hover:dark:text-indigo-100 transition-colors">
+            Ver orações da etapa
+            <ArrowRightCircle className="w-5 h-5" aria-hidden="true" />
+          </span>
         </div>
       </CardHeader>
     </Card>

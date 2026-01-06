@@ -1,5 +1,6 @@
 
 import React, { useMemo } from 'react';
+import { BookOpen } from 'lucide-react';
 import EtapaCard from './EtapaCard';
 import { AvisoPreparatorio } from './AvisoPreparatorio';
 import { useCronogramaStatus } from '../hooks/useCronogramaStatus';
@@ -33,6 +34,14 @@ export const CronogramaCards: React.FC = () => {
       {mostrarAvisoPreparatorio && (
         <AvisoPreparatorio getTextoFaltamDias={getTextoFaltamDias} dataInicio={inicioProximo} formatarData={formatarData} />
       )}
+
+      <div className="flex items-center justify-center gap-2 mb-4 mt-2 w-full">
+        <BookOpen className="text-blue-600 dark:text-blue-400 w-6 h-6" aria-hidden="true" />
+        <h2 className="text-lg font-semibold text-blue-700 dark:text-blue-300">
+          Etapas e orações da consagração
+        </h2>
+      </div>
+
       {cronogramaOrdenado.map((etapa) => {
         const { etapaId, highlight } = getEtapaCardHighlight(
           etapa.nome,
