@@ -7,6 +7,7 @@ import { CronogramaCards } from './components/CronogramaCards';
 import { Heart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { ConsagracaoInputs } from './components/ConsagracaoInputs';
+import Link from 'next/link';
 
 export default function HomeConsagracao() {
   return (
@@ -20,6 +21,18 @@ export default function HomeConsagracao() {
           <span className="block text-center text-xs mt-1 text-slate-500 dark:text-slate-400 font-medium">
             Segundo o método de São Luís Maria Grignion de Montfort
           </span>
+        </div>
+        <div className="w-full flex justify-center mb-3">
+          <Link
+            href="/o-que-e-consagracao"
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-blue-700 dark:text-blue-300 font-semibold bg-blue-50 dark:bg-blue-950 hover:bg-blue-100 dark:hover:bg-blue-900 shadow-sm transition-colors underline-offset-4 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-400"
+            aria-label="Saiba o que é a Consagração"
+          >
+            <span className="flex items-center gap-2">
+              <span>Saiba mais sobre a consagração</span>
+              <svg className="w-5 h-5 text-blue-500 dark:text-blue-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </span>
+          </Link>
         </div>
         <Card className="mb-8 w-full bg-slate-100/80 dark:bg-slate-800/80 border-0 shadow-md">
           <CardHeader>
