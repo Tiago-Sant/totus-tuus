@@ -41,6 +41,97 @@ export default function OQueEConsagracaoPage() {
             <span className="block mt-1 italic text-slate-800 dark:text-slate-200">“O caminho da perfeição passa pela cruz. Não há santidade sem renúncia e combate espiritual.”</span>
           </AccordionContent>
         </AccordionItem>
+
+        <AccordionItem value="so-para-santos">
+          <AccordionTrigger className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-yellow-500" />A consagração é só para pessoas muito santas ou especiais?</AccordionTrigger>
+          <AccordionContent>
+            A consagração não é para quem já é santo,<br />
+            mas para quem deseja verdadeiramente tornar-se santo.<br /><br />
+            Ela é indicada a todo católico que decidiu:<br />
+            <ul className="list-disc ml-6 mt-1 mb-2 text-slate-700 dark:text-slate-200">
+              <li>buscar seriamente a vontade de Deus</li>
+              <li>abrir-se à ação da graça</li>
+              <li>deixar-se transformar, mesmo com suas fraquezas</li>
+            </ul>
+            Não é necessário nenhum sinal extraordinário, nem um chamado especial.<br />
+            O próprio desejo sincero de viver a santidade já é um chamado suficiente.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="preciso-de-sinal">
+          <AccordionTrigger className="flex items-center gap-2"><BookOpen className="w-4 h-4 text-blue-500" />Preciso de algum sinal de Deus ou confirmação especial para me consagrar?</AccordionTrigger>
+          <AccordionContent>
+            Não é necessário esperar sinais extraordinários.<br /><br />
+            Na vida espiritual, Deus costuma agir de forma simples e discreta.<br />
+            O desejo perseverante de se entregar mais a Ele<br />
+            e de buscar uma vida que Lhe agrade já é obra da graça.<br /><br />
+            Muitas vezes, esperar um “sinal” é apenas uma forma de adiar<br />
+            uma decisão que Deus já colocou no coração.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="pecados-imperfeicoes">
+          <AccordionTrigger className="flex items-center gap-2"><Heart className="w-4 h-4 text-red-500" />E se eu ainda tenho muitos pecados e imperfeições?</AccordionTrigger>
+          <AccordionContent>
+            A consagração não exige perfeição,<br />
+            mas humildade e abertura à conversão.<br /><br />
+            Justamente porque somos fracos, recorremos a Maria,<br />
+            que nos conduz com paciência até Jesus.<br /><br />
+            Quem se consagra não diz: “eu sou digno”,<br />
+            mas sim: “eu preciso de ajuda”.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="medo-nao-conseguir">
+          <AccordionTrigger className="flex items-center gap-2"><Feather className="w-4 h-4 text-sky-500" />Tenho medo de não conseguir viver tudo o que a consagração pede.</AccordionTrigger>
+          <AccordionContent>
+            Esse medo sincero não é um obstáculo — é um bom sinal.<br /><br />
+            Ele revela uma verdade fundamental da vida espiritual:<br />
+            sozinho, ninguém dá conta.<br /><br />
+            A consagração não se apoia nas próprias forças,<br />
+            mas na graça de Deus recebida por meio de Maria.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="falhar-depois">
+          <AccordionTrigger className="flex items-center gap-2"><Leaf className="w-4 h-4 text-green-600" />E se eu falhar depois de me consagrar?</AccordionTrigger>
+          <AccordionContent>
+            A consagração não elimina as quedas,<br />
+            mas transforma a forma como nos levantamos.<br /><br />
+            Maria não abandona seus filhos por causa das fraquezas.<br />
+            Ela sustenta, corrige, educa e conduz com firmeza e ternura.<br /><br />
+            Cair não é o maior perigo.<br />
+            O verdadeiro perigo é desistir de buscar a santidade.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="responsabilidade-grande">
+          <AccordionTrigger className="flex items-center gap-2"><LinkIcon className="w-4 h-4 text-indigo-600" />Não é uma responsabilidade grande demais para mim?</AccordionTrigger>
+          <AccordionContent>
+            Sim, é grande.<br />
+            Mas não é carregada sozinho.<br /><br />
+            Na consagração, a pessoa entrega a Jesus, pelas mãos de Maria:<br />
+            <ul className="list-disc ml-6 mt-1 mb-2 text-slate-700 dark:text-slate-200">
+              <li>suas forças</li>
+              <li>suas fraquezas</li>
+              <li>seus esforços</li>
+              <li>e até suas incapacidades</li>
+            </ul>
+            Maria apresenta tudo a Jesus purificado e aperfeiçoado pela graça.
+          </AccordionContent>
+        </AccordionItem>
+
+        <AccordionItem value="nao-perseverar">
+          <AccordionTrigger className="flex items-center gap-2"><Clock className="w-4 h-4 text-yellow-600" />E se eu não conseguir perseverar?</AccordionTrigger>
+          <AccordionContent>
+            A perseverança não nasce da confiança em si mesmo,<br />
+            mas da confiança em Deus.<br /><br />
+            A consagração é um meio concreto para sustentar a perseverança,<br />
+            evitar o desânimo e continuar caminhando, mesmo nas dificuldades.<br /><br />
+            Quem se consagra não promete nunca cair,<br />
+            mas decide não caminhar mais sozinho.
+          </AccordionContent>
+        </AccordionItem>
         <AccordionItem value="santidade">
           <AccordionTrigger className="flex items-center gap-2"><Leaf className="w-4 h-4 text-green-600" />A consagração é para quem busca a santidade?</AccordionTrigger>
           <AccordionContent>
