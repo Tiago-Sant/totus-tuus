@@ -1,4 +1,5 @@
 "use client";
+import dayjs from 'dayjs';
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 
@@ -12,6 +13,7 @@ type ConsagracaoContextType = {
   isDataLivre: boolean;
   dataLivre: Date | undefined;
   setDataLivre: (d: Date | undefined) => void;
+  consagracaoDateLabel: string;
 };
 
 const ConsagracaoContext = createContext<ConsagracaoContextType | undefined>(undefined);
@@ -65,8 +67,33 @@ export function ConsagracaoProvider({ children }: { children: React.ReactNode })
     persist({ dataLivre: novaDataLivre });
   }, [persist]);
 
+  // Lógica para exibir a label correta da data selecionada
+  function getConsagracaoDateLabel(date: string): string {
+    if (!date) return "Selecione a data";
+    const datasOptions = datasMarianas.map((d) => ({
+      value: d.data,
+      label: `${d.nome} (${dayjs(d.data).format('DD/MM/YYYY')})`,
+      nome: d.nome,
+    }));
+    datasOptions.push({ value: 'livre', label: 'Escolher outra data no calendário...', nome: 'livre' });
+
+    const found = datasOptions.find((opt) => opt.value === date);
+    if (found) return found.label;
+
+    const imaculadoOpt = datasOptions.find((opt) => opt.nome === 'Imaculado Coração de Maria');
+    if (imaculadoOpt && date !== imaculadoOpt.value) {
+        setConsagracaoDateState(imaculadoOpt.value);
+        persist({ dataFinal: imaculadoOpt.value });
+      return imaculadoOpt.label;
+    }
+    
+    return "Selecione a data";
+  }
+
+  const consagracaoDateLabel = getConsagracaoDateLabel(consagracaoDate);
+
   return (
-    <ConsagracaoContext.Provider value={{ consagracaoDate, setConsagracaoDate, modo, setModo, isDataLivre, dataLivre, setDataLivre }}>
+    <ConsagracaoContext.Provider value={{ consagracaoDate, setConsagracaoDate, modo, setModo, isDataLivre, dataLivre, setDataLivre, consagracaoDateLabel }}>
       {children}
     </ConsagracaoContext.Provider>
   );

@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { proximaDataImaculadoCoracaoDeMaria } from './imaculadoCoracaoMaria';
 
 // Funções utilitárias para cálculo do cronograma de consagração
 
@@ -100,6 +101,7 @@ export function gerarCronograma(dataConsagracao: Date, modo: ModoContagem): Cron
 export const datasMarianas = [
   { nome: 'Solenidade da Imaculada Conceição', data: '2026-12-08' },
   { nome: 'Nossa Senhora Aparecida', data: '2026-10-12' },
+  { nome: 'Imaculado Coração de Maria', data: proximaDataImaculadoCoracaoDeMaria() },
   { nome: 'Nossa Senhora de Fátima', data: '2026-05-13' },
   { nome: 'Nossa Senhora de Guadalupe', data: '2026-12-12' },
   { nome: 'Nossa Senhora do Carmo', data: '2026-07-16' },

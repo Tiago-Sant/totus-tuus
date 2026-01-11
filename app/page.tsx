@@ -1,5 +1,3 @@
-
-import { getConsagracaoFromCookie } from './utils/getConsagracaoFromCookie';
 import HomeConsagracao from './HomeConsagracao';
 
 

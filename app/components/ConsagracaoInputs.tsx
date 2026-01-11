@@ -31,15 +31,17 @@ export const ConsagracaoInputs: React.FC = () => {
     setModo,
     isDataLivre,
     dataLivre,
-    setDataLivre
+    setDataLivre,
+    consagracaoDateLabel
   } = useConsagracao();
 
   // Preparar as opções para o combobox
   const datasOptions = datasMarianas.map((d) => ({
     value: d.data,
     label: `${d.nome} (${dayjs(d.data).format('DD/MM/YYYY')})`,
+    nome: d.nome,
   }));
-  datasOptions.push({ value: 'livre', label: 'Escolher outra data no calendário...' });
+  datasOptions.push({ value: 'livre', label: 'Escolher outra data no calendário...', nome: 'livre' });
 
   const [open, setOpen] = React.useState(false);
   const [calendarOpen, setCalendarOpen] = React.useState(false);
@@ -65,9 +67,7 @@ export const ConsagracaoInputs: React.FC = () => {
             style={{ minHeight: 40 }}
           >
             <span className="truncate block text-left flex-1">
-              {consagracaoDate
-                ? datasOptions.find((opt) => opt.value === consagracaoDate)?.label
-                : "Selecione a data"}
+              {consagracaoDateLabel}
             </span>
             <ChevronsUpDown className="opacity-50 shrink-0" />
           </Button>
