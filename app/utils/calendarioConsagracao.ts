@@ -98,21 +98,32 @@ export function gerarCronograma(dataConsagracao: Date, modo: ModoContagem): Cron
   return cronograma;
 }
 
+function proximaDataFixa(diaMes: string, dataBase: dayjs.Dayjs = dayjs()): string {
+  const anoAtual = dataBase.year();
+  const dataAtualAno = dayjs(`${anoAtual}-${diaMes}`);
+
+  if (!dataAtualAno.isBefore(dataBase, 'day')) {
+    return dataAtualAno.format('YYYY-MM-DD');
+  }
+
+  return dayjs(`${anoAtual + 1}-${diaMes}`).format('YYYY-MM-DD');
+}
+
 export const datasMarianas = [
-  { nome: 'Solenidade da Imaculada Conceição', data: '2026-12-08' },
-  { nome: 'Nossa Senhora Aparecida', data: '2026-10-12' },
+  { nome: 'Solenidade da Imaculada Conceição', data: proximaDataFixa('12-08') },
+  { nome: 'Nossa Senhora Aparecida', data: proximaDataFixa('10-12') },
   { nome: 'Imaculado Coração de Maria', data: proximaDataImaculadoCoracaoDeMaria() },
-  { nome: 'Nossa Senhora de Fátima', data: '2026-05-13' },
-  { nome: 'Nossa Senhora de Guadalupe', data: '2026-12-12' },
-  { nome: 'Nossa Senhora do Carmo', data: '2026-07-16' },
-  { nome: 'Nossa Senhora de Lourdes', data: '2026-02-11' },
-  { nome: 'Nossa Senhora das Graças', data: '2026-11-27' },
-  { nome: 'Nossa Senhora do Rosário', data: '2026-10-07' },
-  { nome: 'Nossa Senhora das Dores', data: '2026-09-15' },
-  { nome: 'Nossa Senhora Rainha', data: '2026-08-22' },
-  { nome: 'Solenidade da Anunciação', data: '2026-03-25' },
-  { nome: 'Santíssimo Nome de Maria', data: '2026-09-12' },
-  { nome: 'Natividade de Maria', data: '2026-09-08' },
-  { nome: 'Assunção de Maria', data: '2026-08-15' },
-  { nome: 'Nossa Senhora do Perpétuo Socorro', data: '2026-06-27' },
-];
+  { nome: 'Nossa Senhora de Fátima', data: proximaDataFixa('05-13') },
+  { nome: 'Nossa Senhora de Guadalupe', data: proximaDataFixa('12-12') },
+  { nome: 'Nossa Senhora do Carmo', data: proximaDataFixa('07-16') },
+  { nome: 'Nossa Senhora de Lourdes', data: proximaDataFixa('02-11') },
+  { nome: 'Nossa Senhora das Graças', data: proximaDataFixa('11-27') },
+  { nome: 'Nossa Senhora do Rosário', data: proximaDataFixa('10-07') },
+  { nome: 'Nossa Senhora das Dores', data: proximaDataFixa('09-15') },
+  { nome: 'Nossa Senhora Rainha', data: proximaDataFixa('08-22') },
+  { nome: 'Solenidade da Anunciação', data: proximaDataFixa('03-25') },
+  { nome: 'Santíssimo Nome de Maria', data: proximaDataFixa('09-12') },
+  { nome: 'Natividade de Maria', data: proximaDataFixa('09-08') },
+  { nome: 'Assunção de Maria', data: proximaDataFixa('08-15') },
+  { nome: 'Nossa Senhora do Perpétuo Socorro', data: proximaDataFixa('06-27') },
+].sort((a, b) => (dayjs(a.data).isBefore(dayjs(b.data), 'day') ? -1 : 1));
